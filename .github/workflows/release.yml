@@ -1,0 +1,154 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  # ─── Build release binaries ────────────────────────────────────────────────
+  build-release:
+    name: Build Release (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            cmake ninja-build \
+            libgtk-3-dev libsqlite3-dev libssl-dev uuid-dev \
+            librsvg2-bin desktop-file-utils
+
+      - name: Configure
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DSDO_BUILD_TESTS=ON \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DPROJECT_VERSION=${{ steps.version.outputs.VERSION }}
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: cd build && ctest --output-on-failure --timeout 60
+
+      - name: Package DEB
+        run: cd build && cpack -G DEB -D CPACK_PACKAGE_VERSION=${{ steps.version.outputs.VERSION }}
+
+      - name: Package TGZ
+        run: cd build && cpack -G TGZ -D CPACK_PACKAGE_VERSION=${{ steps.version.outputs.VERSION }}
+
+      - name: Rename packages with OS label
+        run: |
+          OS_LABEL=$(echo "${{ matrix.os }}" | tr '-' '_')
+          cd build
+          for f in *.deb *.tar.gz; do
+            [ -f "$f" ] && mv "$f" "${f%.deb}_${OS_LABEL}.deb" 2>/dev/null || \
+                           mv "$f" "${f%.tar.gz}_${OS_LABEL}.tar.gz" 2>/dev/null || true
+          done
+          ls -la *.deb *.tar.gz 2>/dev/null || true
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.os }}
+          path: |
+            build/*.deb
+            build/*.tar.gz
+          retention-days: 1
+
+  # ─── Create GitHub Release ─────────────────────────────────────────────────
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: build-release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Collect release files
+        run: |
+          mkdir -p release-files
+          find artifacts/ -name "*.deb" -o -name "*.tar.gz" | xargs -I{} cp {} release-files/
+          ls -la release-files/
+
+      - name: Generate release notes from CHANGELOG
+        id: changelog
+        run: |
+          # Extract the section for this version from CHANGELOG.md
+          VERSION=${{ steps.version.outputs.VERSION }}
+          NOTES=$(awk "/^## \[$VERSION\]/{found=1; next} /^## \[/{if(found) exit} found" CHANGELOG.md)
+          if [ -z "$NOTES" ]; then
+            NOTES="See CHANGELOG.md for details."
+          fi
+          echo "NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Smart Downloads Organizer v${{ steps.version.outputs.VERSION }}
+          body: |
+            ## Smart Downloads Organizer v${{ steps.version.outputs.VERSION }}
+
+            ${{ steps.changelog.outputs.NOTES }}
+
+            ### Installation
+
+            **Ubuntu/Debian:**
+            ```bash
+            sudo dpkg -i smart-downloads-organizer_${{ steps.version.outputs.VERSION }}_amd64.deb
+            sudo apt-get install -f  # resolve dependencies
+            ```
+
+            **From tarball:**
+            ```bash
+            tar xzf smart-downloads-organizer-${{ steps.version.outputs.VERSION }}-Linux.tar.gz
+            sudo make install  # or ./install.sh
+            ```
+
+            **Build from source:**
+            ```bash
+            cmake -B build -DCMAKE_BUILD_TYPE=Release
+            cmake --build build --parallel
+            sudo cmake --install build
+            ```
+
+            ### System Requirements
+            - Linux with inotify support (kernel ≥ 2.6.36)
+            - GTK 3.24+
+            - SQLite 3.31+
+            - OpenSSL 3.0+
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-rc') }}
+          files: release-files/*
+          fail_on_unmatched_files: false
