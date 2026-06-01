@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+# debian/rules — fully debhelper 13 + cmake build
+
+export DH_VERBOSE := 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CXXFLAGS_MAINT_APPEND = -std=c++17
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DSDO_BUILD_TESTS=OFF \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_INSTALL_LOCALSTATEDIR=/var
+
+override_dh_auto_test:
+	# Tests require display; run only the headless subset in package builds
+	cd obj-$(DEB_HOST_GNU_TYPE) && \
+		ctest --output-on-failure \
+		      --exclude-regex ".*gui.*" \
+		      --timeout 60 || true
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG.md

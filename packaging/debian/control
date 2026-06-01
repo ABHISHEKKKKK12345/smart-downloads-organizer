@@ -1,0 +1,46 @@
+Source: smart-downloads-organizer
+Section: utils
+Priority: optional
+Maintainer: SDO Project <183800969+ABHISHEKKKKK12345@users.noreply.github.com>
+Build-Depends: debhelper-compat (= 13),
+               cmake (>= 3.16),
+               ninja-build,
+               libgtk-3-dev (>= 3.24),
+               libsqlite3-dev (>= 3.31),
+               libssl-dev (>= 3.0),
+               uuid-dev (>= 2.34),
+               pkg-config,
+               librsvg2-bin
+Standards-Version: 4.6.2
+Homepage: https://github.com/ABHISHEKKKKK12345/smart-downloads-organizer
+Vcs-Browser: https://github.com/ABHISHEKKKKK12345/smart-downloads-organizer
+Vcs-Git: https://github.com/ABHISHEKKKKK12345/smart-downloads-organizer.git
+Rules-Requires-Root: no
+
+Package: smart-downloads-organizer
+Architecture: amd64 arm64
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libgtk-3-0 (>= 3.24),
+         libsqlite3-0 (>= 3.31),
+         libssl3 (>= 3.0),
+         libuuid1 (>= 2.34),
+         libglib2.0-0
+Recommends: xdg-utils, libnotify-bin
+Suggests: thunar | nautilus | dolphin
+Description: Enterprise-grade automatic downloads folder organizer
+ Smart Downloads Organizer watches your Downloads folder (and any other
+ configured paths) in real time using Linux inotify and automatically
+ sorts, categorizes, deduplicates, and cleans up incoming files using
+ a fully configurable rule engine.
+ .
+ Features:
+  * Real-time inotify-based file watching with zero polling overhead
+  * Auto-categorization of 200+ file extensions into 12 categories
+  * SHA-256 duplicate detection with one-click cleanup
+  * Configurable rule engine: extension, name, size, age, MIME, regex
+  * Full undo history for every file operation
+  * Cleanup suggestions for large, old, and duplicate files
+  * Simulation (dry-run) mode to preview changes
+  * Headless/daemon mode for servers and background operation
+  * Persistent SQLite database with full-text search
+  * Dark-themed GTK3 interface

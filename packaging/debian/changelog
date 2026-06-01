@@ -1,0 +1,12 @@
+smart-downloads-organizer (2.0.0-1) unstable; urgency=medium
+
+  * Initial Debian packaging.
+  * Full GTK3 GUI with dashboard, file browser, duplicate detector,
+    cleanup suggestions, rule editor, activity log, and settings.
+  * SHA-256 duplicate detection engine.
+  * Configurable rule engine with 8 condition operators.
+  * Persistent SQLite database.
+  * Headless/daemon mode via --headless flag.
+  * Full undo history for all file operations.
+
+ -- SDO Project <sdo@example.com>  Wed, 01 Jan 2025 00:00:00 +0000

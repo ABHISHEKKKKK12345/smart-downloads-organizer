@@ -1,0 +1,121 @@
+# .clang-format — Smart Downloads Organizer code style
+# Based on LLVM style with project-specific overrides.
+# Apply with: clang-format -i src/*.cpp include/*.hpp
+
+Language:        Cpp
+Standard:        c++17
+BasedOnStyle:    LLVM
+
+# Indentation
+IndentWidth:               4
+TabWidth:                  4
+UseTab:                    Never
+ContinuationIndentWidth:   4
+ConstructorInitializerIndentWidth: 4
+NamespaceIndentation:      None
+
+# Line length
+ColumnLimit:               100
+ReflowComments:            true
+
+# Braces
+BreakBeforeBraces:         Attach
+BraceWrapping:
+  AfterClass:              false
+  AfterControlStatement:   false
+  AfterEnum:               false
+  AfterFunction:           false
+  AfterNamespace:          false
+  AfterStruct:             false
+  AfterUnion:              false
+  BeforeCatch:             false
+  BeforeElse:              false
+  IndentBraces:            false
+
+# Alignment
+AlignAfterOpenBracket:            Align
+AlignConsecutiveAssignments:      AcrossComments
+AlignConsecutiveDeclarations:     None
+AlignConsecutiveMacros:           AcrossComments
+AlignEscapedNewlines:             Right
+AlignOperands:                    Align
+AlignTrailingComments:            true
+
+# Spacing
+SpaceAfterCStyleCast:             false
+SpaceAfterLogicalNot:             false
+SpaceAfterTemplateKeyword:        true
+SpaceBeforeAssignmentOperators:   true
+SpaceBeforeCpp11BracedList:       false
+SpaceBeforeCtorInitializerColon:  true
+SpaceBeforeInheritanceColon:      true
+SpaceBeforeParens:                ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceInEmptyParentheses:          false
+SpacesBeforeTrailingComments:     2
+SpacesInAngles:                   false
+SpacesInCStyleCastParentheses:    false
+SpacesInContainerLiterals:        false
+SpacesInParentheses:              false
+SpacesInSquareBrackets:           false
+
+# Includes
+SortIncludes:                     CaseSensitive
+IncludeBlocks:                    Regroup
+IncludeCategories:
+  # Our own headers first
+  - Regex:           '^"(types|logger|config_manager|file_analyzer|file_watcher|database|organizer_engine|app_window)\.hpp"'
+    Priority:        1
+  # GTK / GLib
+  - Regex:           '^<(gtk|gdk|glib|gio|cairo|pango|atk)'
+    Priority:        2
+  # SQLite
+  - Regex:           '^<sqlite3\.h>'
+    Priority:        3
+  # OpenSSL
+  - Regex:           '^<openssl/'
+    Priority:        4
+  # POSIX / system
+  - Regex:           '^<(sys|linux|unistd|fcntl|errno|signal|pthread)'
+    Priority:        5
+  # C++ standard library
+  - Regex:           '^<[a-z_]+>'
+    Priority:        6
+
+# Pointer alignment
+DerivePointerAlignment:           false
+PointerAlignment:                 Left
+
+# Function arguments
+AllowAllArgumentsOnNextLine:      true
+AllowAllParametersOfDeclarationOnNextLine: true
+BinPackArguments:                 true
+BinPackParameters:                true
+
+# Short forms
+AllowShortBlocksOnASingleLine:    Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine:   Inline
+AllowShortLoopsOnASingleLine:     false
+
+# Constructor initializers
+BreakConstructorInitializers:     BeforeComma
+PackConstructorInitializers:      BinPack
+
+# Templates
+AlwaysBreakTemplateDeclarations:  Yes
+
+# Penalties (tune line-break decisions)
+PenaltyBreakAssignment:           100
+PenaltyBreakBeforeFirstCallParameter: 100
+PenaltyBreakComment:              300
+PenaltyBreakFirstLessLess:        120
+PenaltyBreakString:               1000
+PenaltyExcessCharacter:           1000000
+PenaltyReturnTypeOnItsOwnLine:    200
+
+# Misc
+FixNamespaceComments:             true
+SortUsingDeclarations:            true

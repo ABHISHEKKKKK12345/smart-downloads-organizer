@@ -1,0 +1,114 @@
+# Build directories
+build/
+build-*/
+cmake-build-*/
+out/
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_CPack_Packages/
+*.cmake
+!cmake/*.cmake
+
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Libraries
+*.a
+*.la
+*.lai
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# Executables
+sdo
+sdo-*
+*.exe
+*.app
+
+# Test binaries
+tests/sdo_test_*
+build/bin/
+
+# CPack output
+*.deb
+*.rpm
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+*.dmg
+*.pkg
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.orig
+*.bak
+\#*\#
+.#*
+.DS_Store
+Thumbs.db
+
+# Clangd LSP
+.clangd/
+.cache/
+
+# Compile commands (generated, but we may want to keep in some cases)
+compile_commands.json
+
+# Runtime data (user-specific, never committed)
+~/.config/smart-downloads-organizer/
+~/.local/share/smart-downloads-organizer/
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# Test artifacts
+/tmp/sdo_test*
+/tmp/sdo_fw_test*
+/tmp/sdo_engine_test*
+
+# Coverage reports
+*.gcno
+*.gcda
+*.gcov
+coverage/
+lcov.info
+
+# Valgrind output
+vgcore.*
+callgrind.*
+massif.*
+
+# Packaging build trees
+packaging/debian/smart-downloads-organizer/
+packaging/debian/*.log
+packaging/debian/*.substvars
+packaging/debian/files
+
+# Doxygen output
+docs/html/
+docs/latex/
+docs/xml/
+Doxyfile.bak

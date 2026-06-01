@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.sdo.organizer</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+
+  <name>Smart Downloads Organizer</name>
+  <summary>Automatically organize, categorize, and clean up your Downloads folder</summary>
+
+  <description>
+    <p>
+      Smart Downloads Organizer (SDO) is an enterprise-grade utility that watches your
+      Downloads folder (and any other configured paths) and automatically sorts incoming
+      files into the right locations using a fully configurable rule engine.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>Real-time file watching via Linux inotify — zero polling overhead</li>
+      <li>Automatic categorization of 200+ file extensions into 12 categories</li>
+      <li>SHA-256 duplicate detection with one-click cleanup</li>
+      <li>Configurable rule engine: match by extension, name, size, age, MIME type, or regex</li>
+      <li>Full undo history for every file operation</li>
+      <li>Cleanup suggestions for large, old, and duplicate files</li>
+      <li>Simulation (dry-run) mode to preview changes before applying</li>
+      <li>Headless mode for background operation without a GUI</li>
+      <li>Persistent SQLite database with search and filter</li>
+      <li>Dark-themed GTK3 interface designed for daily use</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">com.sdo.organizer.desktop</launchable>
+
+  <url type="homepage">https://github.com/ABHISHEKKKKK12345/smart-downloads-organizer</url>
+  <url type="bugtracker">https://github.com/ABHISHEKKKKK12345/smart-downloads-organizer/issues</url>
+  <url type="help">https://github.com/ABHISHEKKKKK12345/smart-downloads-organizer/wiki</url>
+
+  <developer_name>SDO Project</developer_name>
+
+  <provides>
+    <binary>sdo</binary>
+  </provides>
+
+  <requires>
+    <display_length compare="ge">800</display_length>
+    <memory compare="ge">64</memory>
+  </requires>
+
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </recommends>
+
+  <categories>
+    <category>Utility</category>
+    <category>FileManager</category>
+    <category>GTK</category>
+  </categories>
+
+  <keywords>
+    <keyword>downloads</keyword>
+    <keyword>organizer</keyword>
+    <keyword>files</keyword>
+    <keyword>cleanup</keyword>
+    <keyword>duplicate</keyword>
+    <keyword>categorize</keyword>
+    <keyword>watcher</keyword>
+    <keyword>automation</keyword>
+  </keywords>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Dashboard showing file statistics and category breakdown</caption>
+      <image type="source" width="1280" height="800">
+        https://raw.githubusercontent.com/ABHISHEKKKKK12345/smart-downloads-organizer/main/docs/screenshots/dashboard.png
+      </image>
+    </screenshot>
+    <screenshot>
+      <caption>Files view with search and category filter</caption>
+      <image type="source" width="1280" height="800">
+        https://raw.githubusercontent.com/ABHISHEKKKKK12345/smart-downloads-organizer/main/docs/screenshots/files.png
+      </image>
+    </screenshot>
+    <screenshot>
+      <caption>Rule editor for configuring automatic organization</caption>
+      <image type="source" width="1280" height="800">
+        https://raw.githubusercontent.com/ABHISHEKKKKK12345/smart-downloads-organizer/main/docs/screenshots/rules.png
+      </image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="2.0.0" date="2025-01-01">
+      <description>
+        <p>Initial public release of Smart Downloads Organizer 2.0.</p>
+        <ul>
+          <li>Complete GTK3 GUI with 7-page interface</li>
+          <li>SHA-256 duplicate detection engine</li>
+          <li>Configurable rule engine with 8 condition operators</li>
+          <li>Full undo history</li>
+          <li>SQLite persistent storage</li>
+          <li>Headless/daemon mode</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>

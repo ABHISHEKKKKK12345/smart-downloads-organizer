@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#e94560;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c0283f;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="tabGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   style="stop-color:#ff6b81;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#e94560;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="128" cy="128" r="120" fill="url(#bgGrad)"/>
+  <circle cx="128" cy="128" r="120" fill="none" stroke="#0f3460" stroke-width="2"/>
+
+  <!-- Folder tab -->
+  <path d="M 52 95 L 52 88 Q 52 80 60 80 L 105 80 Q 113 80 116 87 L 122 95 Z"
+        fill="url(#tabGrad)" filter="url(#shadow)"/>
+
+  <!-- Folder body -->
+  <rect x="44" y="95" width="168" height="106" rx="10" ry="10"
+        fill="url(#folderGrad)" filter="url(#shadow)"/>
+
+  <!-- Folder body highlight -->
+  <rect x="44" y="95" width="168" height="18" rx="10" ry="10"
+        fill="rgba(255,255,255,0.12)"/>
+
+  <!-- File lines inside folder (representing sorted files) -->
+  <!-- File 1 - document icon -->
+  <rect x="72" y="122" width="32" height="40" rx="3" fill="white" opacity="0.9"/>
+  <path d="M 88 122 L 96 130 L 96 162 L 72 162 L 72 122 Z" fill="white" opacity="0.9"/>
+  <path d="M 88 122 L 88 130 L 96 130 Z" fill="#e94560" opacity="0.7"/>
+  <line x1="76" y1="136" x2="92" y2="136" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+  <line x1="76" y1="142" x2="92" y2="142" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+  <line x1="76" y1="148" x2="88" y2="148" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- File 2 - image icon -->
+  <rect x="112" y="122" width="32" height="40" rx="3" fill="white" opacity="0.9"/>
+  <rect x="114" y="124" width="28" height="20" rx="2" fill="#4CAF50" opacity="0.6"/>
+  <circle cx="120" cy="130" r="3" fill="white" opacity="0.8"/>
+  <path d="M 114 140 L 122 133 L 128 138 L 133 134 L 142 144 L 114 144 Z"
+        fill="white" opacity="0.7"/>
+  <line x1="116" y1="149" x2="140" y2="149" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+  <line x1="116" y1="155" x2="132" y2="155" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- File 3 - video icon -->
+  <rect x="152" y="122" width="32" height="40" rx="3" fill="white" opacity="0.9"/>
+  <rect x="154" y="124" width="28" height="22" rx="2" fill="#2196F3" opacity="0.6"/>
+  <polygon points="162,128 162,142 174,135" fill="white" opacity="0.8"/>
+  <line x1="156" y1="151" x2="180" y2="151" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+  <line x1="156" y1="157" x2="172" y2="157" stroke="#ccc" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Organizing arrows (swoosh around the folder) -->
+  <!-- Right arrow - up -->
+  <path d="M 205 108 Q 220 95 215 80" fill="none" stroke="white"
+        stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <polygon points="210,74 215,80 220,74" fill="white" opacity="0.6"/>
+
+  <!-- Right arrow - down -->
+  <path d="M 207 148 Q 222 160 218 175" fill="none" stroke="white"
+        stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <polygon points="213,180 218,175 223,180" fill="white" opacity="0.6"/>
+
+  <!-- Small badge: checkmark circle -->
+  <circle cx="196" cy="196" r="24" fill="#16213e" stroke="#e94560" stroke-width="2"/>
+  <path d="M 185 196 L 193 204 L 207 188" fill="none" stroke="#4CAF50"
+        stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

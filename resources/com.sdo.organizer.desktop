@@ -1,0 +1,27 @@
+[Desktop Entry]
+Type=Application
+Name=Smart Downloads Organizer
+Name[en]=Smart Downloads Organizer
+GenericName=Downloads Organizer
+GenericName[en]=Downloads Organizer
+Comment=Automatically organize, categorize, and clean up your Downloads folder
+Comment[en]=Automatically organize, categorize, and clean up your Downloads folder
+Exec=sdo %U
+Icon=com.sdo.organizer
+Terminal=false
+Categories=Utility;FileManager;GTK;
+Keywords=downloads;organizer;files;cleanup;duplicate;categorize;
+StartupNotify=true
+StartupWMClass=SmartDownloadsOrganizer
+MimeType=inode/directory;
+Actions=Headless;ScanNow;
+
+[Desktop Action Headless]
+Name=Run in Background (Headless)
+Name[en]=Run in Background (Headless)
+Exec=sdo --headless
+
+[Desktop Action ScanNow]
+Name=Scan Downloads Now
+Name[en]=Scan Downloads Now
+Exec=sdo --headless --scan-once
